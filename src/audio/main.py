@@ -18,6 +18,8 @@ class Response(IntEnum):
 
 
 # Setting up stimulus parameters
+# the norm_cdf sample function that we are using is only defined for linear stimuli
+# however, we can "log-transform" the stimuli to sample the psychometric function in log space
 intensity = np.logspace(
     np.log10(UPPER_FREQ), np.log10(LOWER_FREQ), 2 * int(UPPER_FREQ - LOWER_FREQ)
 )  # the x values which are used to sample the psychometric function(s)
@@ -31,8 +33,8 @@ mean = np.linspace(
     UPPER_FREQ, LOWER_FREQ, 2 * int(UPPER_FREQ - LOWER_FREQ)
 )  # this corresponds to the mean (i.e., frequency) of the sound
 standard_deviation = 1
-gamma = 0.5 # this is a 2FAC (i.e., yes-no) test
-delta = 0.01 # Assume an error of 1% in user input (e.g., meaning yes but typing no)
+gamma = 0.5  # this is a 2FAC (i.e., yes-no) test
+delta = 0.01  # Assume an error of 1% in user input (e.g., meaning yes but typing no)
 
 param_domain = {
     "mean": mean,
@@ -53,7 +55,7 @@ sampler = qp.QuestPlus(
     func="norm_cdf",
     stim_selection_method="min_entropy",
     param_estimation_method="mean",
-    stim_scale="log10",
+    stim_scale="linear",  # norm_cdf only supports linear stimuli
 )
 
 num_trials = 20
