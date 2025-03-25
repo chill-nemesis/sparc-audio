@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "audio"
+version = "0.1.0"
+dependencies = ["numpy", "questplus", "sounddevice"]
+authors = [{ name = "Steffen Peikert", email = "steffen.peikert@fau.de" }]
+readme = "ReadMe.md"
+description = "Demo-Project for Questplus with PyAudio"
+license = { text = "MIT" }
+
+
+[project.optional-dependencies]
+testing = ["pytest", "pytest-cov"]
+development = ["black", "pylint"]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+
+[tool.black]
+line-length = 120
