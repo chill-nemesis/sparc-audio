@@ -31,8 +31,8 @@ mean = np.linspace(
     UPPER_FREQ, LOWER_FREQ, 2 * int(UPPER_FREQ - LOWER_FREQ)
 )  # this corresponds to the mean (i.e., frequency) of the sound
 standard_deviation = 1
-gamma = 0.5
-delta = 0.01
+gamma = 0.5 # this is a 2FAC (i.e., yes-no) test
+delta = 0.01 # Assume an error of 1% in user input (e.g., meaning yes but typing no)
 
 param_domain = {
     "mean": mean,
@@ -53,7 +53,7 @@ sampler = qp.QuestPlus(
     func="norm_cdf",
     stim_selection_method="min_entropy",
     param_estimation_method="mean",
-    stim_scale="linear",
+    stim_scale="log10",
 )
 
 num_trials = 20
